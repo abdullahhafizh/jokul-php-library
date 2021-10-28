@@ -25,7 +25,7 @@ class PaycodeGenerator
             ),
             "customer" => array(
                 "name" => trim($params['customerName']),
-                "email" => $params['customerEmail']
+                "email" => $params['customerEmail'] ?? ""
             ),
             "additional_info" => array(
                 "integration" => array(
@@ -78,7 +78,7 @@ class PaycodeGenerator
         curl_close($ch);
 
         if (is_string($responseJson) && $httpcode == 200) {
-            return json_decode($responseJson, true);
+            return json_decode($responseJson);
         } else {
             echo $responseJson;
             return null;

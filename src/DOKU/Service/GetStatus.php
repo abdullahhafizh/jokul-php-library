@@ -9,16 +9,19 @@ use DOKU\Common\Utils;
 class GetStatus
 {
 
-    public static function generated($config, $id)
+    public static function statused($config, $id)
     {
         $getUrl = Config::getBaseUrl($config['environment']);
 
         $targetPath = '/orders/v1/status/' . $id;
         $url = $getUrl . $targetPath;
 
-        $header['Client-Id'] = $config['client_id'];
-        $header['Request-Id'] = $requestId;
+        $dateTime = gmdate("Y-m-d H:i:s");
+        $dateTime = date(DATE_ISO8601, strtotime($dateTime));
+        $dateTimeFinal = substr($dateTime, 0, 19) . "Z";
         $header['Request-Timestamp'] = $dateTimeFinal;
+        $header['Client-Id'] = $config['client_id'];
+        $header['Request-Id'] = $id;
         $signature = Utils::generateSignature($header, $targetPath, false, $config['shared_key']);
 
         $ch = curl_init($url);
@@ -27,7 +30,7 @@ class GetStatus
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json',
             'Signature:' . $signature,
-            'Request-Id:' . $requestId,
+            'Request-Id:' . $id,
             'Client-Id:' . $config['client_id'],
             'Request-Timestamp:' . $dateTimeFinal,
             'Request-Target:' . $targetPath,
@@ -40,7 +43,7 @@ class GetStatus
         curl_close($ch);
 
         if (is_string($responseJson) && $httpcode == 200) {
-            return json_decode($responseJson, true);
+            return json_decode($responseJson);
         } else {
             echo $responseJson;
             return null;

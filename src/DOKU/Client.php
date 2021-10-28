@@ -38,6 +38,9 @@ class Client
 
     public function getConfig()
     {
+        $this->config['environment'] = env('DOKU_ENV', $this->config['environment'] ?? '');
+        $this->config['client_id'] = env('DOKU_CLIENT', $this->config['client_id'] ?? '');
+        $this->config['shared_key'] = env('DOKU_SECRET', $this->config['shared_key'] ?? '');
         return $this->config;
     }
 
