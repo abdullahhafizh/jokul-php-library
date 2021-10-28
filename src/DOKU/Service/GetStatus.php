@@ -16,12 +16,14 @@ class GetStatus
         $targetPath = '/orders/v1/status/' . $id;
         $url = $getUrl . $targetPath;
 
+        $request_id = $id . time();
+
         $dateTime = gmdate("Y-m-d H:i:s");
         $dateTime = date(DATE_ISO8601, strtotime($dateTime));
         $dateTimeFinal = substr($dateTime, 0, 19) . "Z";
         $header['Request-Timestamp'] = $dateTimeFinal;
         $header['Client-Id'] = $config['client_id'];
-        $header['Request-Id'] = $id;
+        $header['Request-Id'] = $request_id;
         $signature = Utils::generateSignature($header, $targetPath, false, $config['shared_key']);
 
         $ch = curl_init($url);
@@ -30,7 +32,7 @@ class GetStatus
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json',
             'Signature:' . $signature,
-            'Request-Id:' . $id,
+            'Request-Id:' . $request_id,
             'Client-Id:' . $config['client_id'],
             'Request-Timestamp:' . $dateTimeFinal,
             'Request-Target:' . $targetPath,
