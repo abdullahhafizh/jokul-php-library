@@ -12,6 +12,8 @@ use DOKU\Service\BcaVa;
 
 use DOKU\Service\BsiVa;
 
+use DOKU\Service\GetStatus;
+
 class Client
 {
     /**
@@ -21,17 +23,17 @@ class Client
 
     public function isProduction($value)
     {
-        $this->config['environment'] = $value;
+        $this->config['environment'] = env('DOKU_ENV', $value);
     }
 
     public function setClientID($clientID)
     {
-        $this->config['client_id'] = $clientID;
+        $this->config['client_id'] = env('DOKU_CLIENT', $clientID);
     }
 
     public function setSharedKey($key)
     {
-        $this->config['shared_key'] = $key;
+        $this->config['shared_key'] = env('DOKU_SECRET', $key);
     }
 
     public function getConfig()
@@ -61,5 +63,11 @@ class Client
     {
         $this->config = $this->getConfig();
         return BcaVa::generated($this->config, $params);
+    }
+
+    public function checkStatus($request_id)
+    {
+        $this->config = $this->getConfig();
+        return GetStatus::statused($this->config, $request_id);
     }
 }

@@ -42,7 +42,7 @@ class PaycodeGenerator
             $data['order']["max_amount"] = $params['min_amount'];
         }
 
-        $requestId = rand(1, 100000);
+        $requestId = $params['invoiceNumber'];
         $dateTime = gmdate("Y-m-d H:i:s");
         $dateTime = date(DATE_ISO8601, strtotime($dateTime));
         $dateTimeFinal = substr($dateTime, 0, 19) . "Z";
