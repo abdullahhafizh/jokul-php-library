@@ -6,11 +6,17 @@ use DOKU\Service\VirtualAccount;
 
 use DOKU\Service\MandiriVa;
 
+use DOKU\Service\PermataVa;
+
+use DOKU\Service\CimbVa;
+
 use DOKU\Service\DokuVa;
 
 use DOKU\Service\BcaVa;
 
 use DOKU\Service\BsiVa;
+
+use DOKU\Service\BriVa;
 
 use DOKU\Service\GetStatus;
 
@@ -67,6 +73,25 @@ class Client
         $this->config = $this->getConfig();
         return BcaVa::generated($this->config, $params);
     }
+
+    public function generateBriVa($params)
+    {
+        $this->config = $this->getConfig();
+        return BriVa::generated($this->config, $params);
+    }
+
+    public function generateCimbVa($params)
+    {
+        $this->config = $this->getConfig();
+        return CimbVa::generated($this->config, $params);
+    }
+
+    public function generatePermataVa($params)
+    {
+        $this->config = $this->getConfig();
+        return PermataVa::generated($this->config, $params);
+    }
+
 
     public function checkStatus($request_id)
     {
