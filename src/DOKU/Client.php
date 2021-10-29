@@ -71,6 +71,6 @@ class Client
     public function checkStatus($request_id)
     {
         $this->config = $this->getConfig();
-        return GetStatus::statused($this->config, $request_id . time());
+        return GetStatus::statused($this->config, $request_id);
     }
 }

@@ -36,7 +36,6 @@ class GetStatus
             'Client-Id:' . $config['client_id'],
             'Request-Timestamp:' . $dateTimeFinal,
             'Request-Target:' . $targetPath,
-
         ));
 
         $responseJson = curl_exec($ch);
