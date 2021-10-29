@@ -19,9 +19,6 @@ class PaycodeGenerator
             "virtual_account_info" => array(
                 "expired_time" => $params['expiryTime'],
                 "reusable_status" => $params['reusableStatus'],
-                "info1" => $params['info1'],
-                "info2" => $params['info2'],
-                "info3" => $params['info3'],
             ),
             "customer" => array(
                 "name" => trim($params['customerName']),
