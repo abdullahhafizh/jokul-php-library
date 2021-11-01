@@ -52,7 +52,6 @@ class PaycodeGenerator
         $header['Client-Id'] = $config['client_id'];
         $header['Request-Id'] = $requestId;
         $header['Request-Timestamp'] = $dateTimeFinal;
-        \Log::info($header);
         $signature = Utils::generateSignature($header, $targetPath, json_encode($data), $config['shared_key']);
 
         $ch = curl_init($url);
