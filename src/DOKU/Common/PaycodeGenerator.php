@@ -40,9 +40,13 @@ class PaycodeGenerator
         }
 
         $requestId = $params['invoiceNumber'];
-        $dateTime = gmdate("Y-m-d H:i:s");
-        $dateTime = date(DATE_ISO8601, strtotime($dateTime) + (int)env('DOKU_SEC', 0));
-        $dateTimeFinal = substr($dateTime, 0, 19) . "Z";
+        
+        // $dateTime = gmdate("Y-m-d H:i:s");
+        // $dateTime = date(DATE_ISO8601, strtotime($dateTime) + (int)env('DOKU_SEC', 0));
+        // $dateTimeFinal = substr($dateTime, 0, 19) . "Z";
+
+        date_default_timezone_set("Atlantic/Azores");
+        $dateTimeFinal = date('Y-m-d\TH:i:s\Z');
 
         $getUrl = Config::getBaseUrl($config['environment']);
 
