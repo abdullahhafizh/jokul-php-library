@@ -8,6 +8,8 @@ use DOKU\Service\MandiriVa;
 
 use DOKU\Service\PermataVa;
 
+use DOKU\Service\AlfaO2O;
+
 use DOKU\Service\CimbVa;
 
 use DOKU\Service\DokuVa;
@@ -92,6 +94,11 @@ class Client
         return PermataVa::generated($this->config, $params);
     }
 
+    public function generateAlfaO2O($params)
+    {
+        $this->config = $this->getConfig();
+        return AlfaO2O::generated($this->config, $params);
+    }
 
     public function checkStatus($request_id)
     {

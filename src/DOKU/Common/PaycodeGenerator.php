@@ -8,15 +8,14 @@ use DOKU\Common\Utils;
 
 class PaycodeGenerator
 {
-
-    public static function post($config, $params)
+    public static function post($config, $params, $type = 'virtual_account')
     {
         $header = array();
         $data = array(
             "order" => array(
                 "invoice_number" => $params['invoiceNumber'],
             ),
-            "virtual_account_info" => array(
+            $type . "_info" => array(
                 "expired_time" => $params['expiryTime'],
                 "reusable_status" => $params['reusableStatus'],
             ),
@@ -37,6 +36,10 @@ class PaycodeGenerator
         } else {
             $data['order']["min_amount"] = $params['min_amount'];
             $data['order']["max_amount"] = $params['min_amount'];
+        }
+
+        if ($type == 'online_to_offline' && isset($params['info'])) {
+            $data[$type . '_info']['info'] = $params['info'];
         }
 
         $requestId = $params['invoiceNumber'];
