@@ -42,7 +42,7 @@ class PaycodeGenerator
             $data[$type . '_info']['info'] = $params['info'];
         }
 
-        $requestId = $params['invoiceNumber'];
+        $requestId = time() . rand(1,1000);
         $dateTime = gmdate("Y-m-d H:i:s");
         $dateTime = date(DATE_ISO8601, strtotime($dateTime) + (int)env('DOKU_SEC', 0));
         $dateTimeFinal = substr($dateTime, 0, 19) . "Z";

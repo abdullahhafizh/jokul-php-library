@@ -16,7 +16,7 @@ class GetStatus
         $targetPath = '/orders/v1/status/' . $id;
         $url = $getUrl . $targetPath;
 
-        $request_id = $id . time();
+        $request_id = time() . rand(1,1000);
 
         $dateTime = gmdate("Y-m-d H:i:s");
         $dateTime = date(DATE_ISO8601, strtotime($dateTime));
