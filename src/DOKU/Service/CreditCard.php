@@ -6,14 +6,30 @@ use DOKU\Common\Config;
 
 use DOKU\Common\Utils;
 
-class GetStatus
+class CreditCard
 {
 
-    public static function statused($config, $id)
+    public static function generated($config, $params)
     {
+        $data = array(
+            "order" => array(
+                "amount" => $params['amount'],
+                "invoice_number" => $params['invoiceNumber'],
+            ),
+            "customer" => array(
+                (!empty($params['customerEmail']) ? "email" : "phone") => (!empty($params['customerEmail']) ? $params['customerEmail'] : $params['customerPhone'])
+            ),
+            "additional_info" => array(
+                "integration" => array(
+                    "name" => "php-library",
+                    "version" => "2.1.0"
+                )
+            )
+        );
+
         $getUrl = Config::getBaseUrl($config['environment']);
 
-        $targetPath = '/orders/v1/status/' . $id;
+        $targetPath = '/credit-card/v1/payment-page';
         $url = $getUrl . $targetPath;
 
         $request_id = time() . rand(1,1000);
@@ -27,8 +43,9 @@ class GetStatus
         $signature = Utils::generateSignature($header, $targetPath, json_encode($data), $config['shared_key']);
 
         $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json',
             'Signature:' . $signature,
