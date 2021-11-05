@@ -28,7 +28,6 @@ class CreditCard
 
         if (!empty($params['language'])) $data['override_configuration']['themes']['language'] = $params['language'];
 
-        
         if (!empty($params['background_color'])) $data['override_configuration']['themes']['background_color'] = $params['background_color'];
         
         if (!empty($params['font_color'])) $data['override_configuration']['themes']['font_color'] = $params['font_color'];
@@ -37,17 +36,17 @@ class CreditCard
         
         if (!empty($params['button_font_color'])) $data['override_configuration']['themes']['button_font_color'] = $params['button_font_color'];
 
-        if (!empty($params['id'])) $data['custmoer']['id'] = $params['id'];
+        if (!empty($params['id'])) $data['customer']['id'] = $params['id'];
 
-        if (!empty($params['name'])) $data['custmoer']['name'] = $params['name'];
+        if (!empty($params['name'])) $data['customer']['name'] = $params['name'];
         
-        if (!empty($params['email'])) $data['custmoer']['email'] = $params['email'];
+        if (!empty($params['email'])) $data['customer']['email'] = $params['email'];
         
-        if (!empty($params['phone'])) $data['custmoer']['phone'] = $params['phone'];
+        if (!empty($params['phone'])) $data['customer']['phone'] = $params['phone'];
         
-        if (!empty($params['address'])) $data['custmoer']['address'] = $params['address'];
+        if (!empty($params['address'])) $data['customer']['address'] = $params['address'];
 
-        if (!empty($params['country'])) $data['custmoer']['country'] = $params['country'];
+        if (!empty($params['country'])) $data['customer']['country'] = $params['country'];
 
         if (!empty($params['callback_url'])) $data['order']['callback_url'] = $params['callback_url'];
 
