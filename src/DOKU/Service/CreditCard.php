@@ -11,21 +11,70 @@ class CreditCard
 
     public static function generated($config, $params)
     {
-        $data = array(
-            "order" => array(
-                "amount" => $params['amount'],
+        $data = [
+            'order' => [
+                "amount" => (int)$params['amount'],
                 "invoice_number" => $params['invoiceNumber'],
-            ),
-            "customer" => array(
-                (!empty($params['customerEmail']) ? "email" : "phone") => (!empty($params['customerEmail']) ? $params['customerEmail'] : $params['customerPhone'])
-            ),
+                'auto_redirect' => (bool)($params['auto_redirect'] ?? false),
+            ],
             "additional_info" => array(
                 "integration" => array(
                     "name" => "php-library",
                     "version" => "2.1.0"
                 )
             )
-        );
+        ];
+
+
+        if (!empty($params['language'])) $data['override_configuration']['themes']['language'] = $params['language'];
+
+        
+        if (!empty($params['background_color'])) $data['override_configuration']['themes']['background_color'] = $params['background_color'];
+        
+        if (!empty($params['font_color'])) $data['override_configuration']['themes']['font_color'] = $params['font_color'];
+        
+        if (!empty($params['button_background_color'])) $data['override_configuration']['themes']['button_background_color'] = $params['button_background_color'];
+        
+        if (!empty($params['button_font_color'])) $data['override_configuration']['themes']['button_font_color'] = $params['button_font_color'];
+
+        if (!empty($params['id'])) $data['custmoer']['id'] = $params['id'];
+
+        if (!empty($params['name'])) $data['custmoer']['name'] = $params['name'];
+        
+        if (!empty($params['email'])) $data['custmoer']['email'] = $params['email'];
+        
+        if (!empty($params['phone'])) $data['custmoer']['phone'] = $params['phone'];
+        
+        if (!empty($params['address'])) $data['custmoer']['address'] = $params['address'];
+
+        if (!empty($params['country'])) $data['custmoer']['country'] = $params['country'];
+
+        if (!empty($params['callback_url'])) $data['order']['callback_url'] = $params['callback_url'];
+
+        if (!empty($params['failed_url'])) $data['order']['failed_url'] = $params['failed_url'];
+
+        if (!empty($params['token'])) $data['card']['token'] = $params['token'];
+
+        if (!empty($params['save'])) $data['card']['save'] = (bool)$params['save'];
+
+        if (!empty($params['line_items'])) {
+            foreach ($params['line_items'] as $key => $value) {
+                $data['order']['line_items'][] = [
+                    'name' => $value['name'],
+                    'price' => (int)$value['price'],
+                    'quantity' => (int)$value['quantity']
+                ];
+            }
+        }
+
+        if (!empty($params['promo'])) {
+            foreach ($params['promo'] as $key => $value) {
+                $data['override_configuration']['promo'][] = [
+                    'bin' => $value['bin'],
+                    'discount_amount' => (int)$value['discount_amount']
+                ];
+            }
+        }
 
         $getUrl = Config::getBaseUrl($config['environment']);
 

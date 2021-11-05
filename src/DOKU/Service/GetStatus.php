@@ -24,7 +24,7 @@ class GetStatus
         $header['Request-Timestamp'] = $dateTimeFinal;
         $header['Client-Id'] = $config['client_id'];
         $header['Request-Id'] = $request_id;
-        $signature = Utils::generateSignature($header, $targetPath, json_encode($data), $config['shared_key']);
+        $signature = Utils::generateSignature($header, $targetPath, false, $config['shared_key']);
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
