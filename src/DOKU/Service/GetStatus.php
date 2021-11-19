@@ -44,6 +44,11 @@ class GetStatus
         curl_close($ch);
 
         if (is_string($responseJson) && $httpcode == 200) {
+            try {
+                \Log::info('GET STATUS LOG');
+                \Log::info(json_encode(json_decode($responseJson), JSON_PRETTY_PRINT));
+            } catch (\Exception $e) {
+            }
             return json_decode($responseJson);
         } else {
             echo $responseJson;
