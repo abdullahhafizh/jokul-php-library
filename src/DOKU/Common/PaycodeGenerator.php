@@ -61,6 +61,12 @@ class PaycodeGenerator
         $header['Request-Timestamp'] = $dateTimeFinal;
         $signature = Utils::generateSignature($header, $targetPath, json_encode($data), $config['shared_key']);
 
+        try {
+            \Log::info('DOKU URL: ' . $url);
+            \Log::info("DOKU VA PAYLOAD: " , json_encode($data, JSON_PRETTY_PRINT));
+        } catch (\Exception $e) {
+        }
+        
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
