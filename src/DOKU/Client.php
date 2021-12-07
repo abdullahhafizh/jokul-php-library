@@ -22,6 +22,8 @@ use DOKU\Service\BsiVa;
 
 use DOKU\Service\BriVa;
 
+use DOKU\Service\BniVa;
+
 use DOKU\Service\GetStatus;
 
 class Client
@@ -82,6 +84,12 @@ class Client
     {
         $this->config = $this->getConfig();
         return BriVa::generated($this->config, $params);
+    }
+
+    public function generateBniVa($params)
+    {
+        $this->config = $this->getConfig();
+        return BniVa::generated($this->config, $params);
     }
 
     public function generateCimbVa($params)
