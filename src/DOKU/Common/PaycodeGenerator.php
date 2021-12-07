@@ -38,6 +38,10 @@ class PaycodeGenerator
             $data['order']["max_amount"] = $params['min_amount'];
         }
 
+        if(isset($params['reff'])) {
+            $data['virtual_account_info']['merchant_unique_reference'] = $params['reff'];
+        }
+
         if ($type == 'online_to_offline' && isset($params['info'])) {
             $data[$type . '_info']['info'] = $params['info'];
         }
