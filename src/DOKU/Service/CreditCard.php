@@ -111,7 +111,10 @@ class CreditCard
         if (is_string($responseJson) && $httpcode == 200) {
             return json_decode($responseJson);
         } else {
-            echo $responseJson;
+            try {
+                \Log::info($responseJson);
+            } catch (\Exception $e) {
+            }
             return null;
         }
     }
