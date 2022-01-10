@@ -95,7 +95,10 @@ class PaycodeGenerator
             }
             return json_decode($responseJson);
         } else {
-            echo $responseJson;
+            try {
+                \Log::info($responseJson);
+            } catch (\Exception $e) {
+            }
             return null;
         }
     }
