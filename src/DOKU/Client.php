@@ -112,6 +112,12 @@ class Client
         return AlfaO2O::generated($this->config, $params);
     }
 
+    public function generateIndomaretO2O($params)
+    {
+        $this->config = $this->getConfig();
+        return IndomaretO2O::generated($this->config, $params);
+    }
+
     public function generateCreditCard($params)
     {
         $this->config = $this->getConfig();
