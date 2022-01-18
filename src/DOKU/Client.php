@@ -12,6 +12,8 @@ use DOKU\Service\PermataVa;
 
 use DOKU\Service\AlfaO2O;
 
+use DOKU\Service\IndomaretO2O;
+
 use DOKU\Service\CimbVa;
 
 use DOKU\Service\DokuVa;

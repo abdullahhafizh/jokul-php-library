@@ -84,8 +84,11 @@ class PaycodeGenerator
 
         $responseJson = curl_exec($ch);
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $err = curl_error($ch);
 
         curl_close($ch);
+
+        if ($err) return $err;
 
         if (is_string($responseJson) && $httpcode == 200) {
             try {
@@ -93,13 +96,13 @@ class PaycodeGenerator
                 \Log::info(json_encode(json_decode($responseJson), JSON_PRETTY_PRINT));
             } catch (\Exception $e) {
             }
-            return json_decode($responseJson);
         } else {
             try {
                 \Log::info($responseJson);
             } catch (\Exception $e) {
             }
-            return null;
         }
+
+        return json_decode($responseJson);
     }
 }
