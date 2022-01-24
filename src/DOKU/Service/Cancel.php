@@ -17,6 +17,8 @@ class Cancel
         $targetPath = $baseTargetPath . '/v2/payment-code';
         $url = $getUrl . $targetPath;
 
+        unset($params['base']);
+
         $request_id = time() . rand(1,1000);
 
         $dateTime = gmdate("Y-m-d H:i:s");
