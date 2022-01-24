@@ -27,7 +27,7 @@ class Cancel
         $header['Request-Timestamp'] = $dateTimeFinal;
         $header['Client-Id'] = $config['client_id'];
         $header['Request-Id'] = $request_id;
-        $signature = Utils::generateSignature($header, $targetPath, $params, $config['shared_key']);
+        $signature = Utils::generateSignature($header, $targetPath, json_encode($params), $config['shared_key']);
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
