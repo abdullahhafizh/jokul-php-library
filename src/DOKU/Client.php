@@ -28,6 +28,8 @@ use DOKU\Service\BniVa;
 
 use DOKU\Service\GetStatus;
 
+use DOKU\Service\Cancel;
+
 class Client
 {
     /**
@@ -128,5 +130,11 @@ class Client
     {
         $this->config = $this->getConfig();
         return GetStatus::statused($this->config, $request_id);
+    }
+
+    public function cancelPayment($params)
+    {
+        $this->config = $this->getConfig();
+        return Cancel::cancelation($this->config, $params);
     }
 }
