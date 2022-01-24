@@ -31,7 +31,7 @@ class Cancel
 
         try {
             \Log::info('DOKU URL: ' . $url);
-            \Log::info("DOKU VA PAYLOAD: " . json_encode($data, JSON_PRETTY_PRINT));
+            \Log::info("DOKU VA PAYLOAD: " . json_encode($params, JSON_PRETTY_PRINT));
         } catch (\Exception $e) {
         }
 
