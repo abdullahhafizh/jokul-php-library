@@ -90,6 +90,12 @@ class CreditCard
         $header['Request-Id'] = $request_id;
         $signature = Utils::generateSignature($header, $targetPath, json_encode($data), $config['shared_key']);
 
+        try {
+        \Log::info('Card Not Present Request: ' . json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+        } catch(\Exception $e) {
+
+        }
+
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
@@ -109,6 +115,7 @@ class CreditCard
         curl_close($ch);
 
         if (is_string($responseJson) && $httpcode == 200) {
+            \Log::info('Card Not Present Response: ' . json_encode(json_decode($responseJson), JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
             return json_decode($responseJson);
         } else {
             try {
