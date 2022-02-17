@@ -37,26 +37,26 @@ class Client
      */
     private $config = array();
 
-    public function isProduction($value)
+    public function isProduction($value = null)
     {
-        $this->config['environment'] = env('DOKU_ENV', $value);
+        $this->config['environment'] = $value ?? env('DOKU_ENV', $value);
     }
 
-    public function setClientID($clientID)
+    public function setClientID($clientID = null)
     {
-        $this->config['client_id'] = env('DOKU_CLIENT', $clientID);
+        $this->config['client_id'] = $clientID ?? env('DOKU_CLIENT', $clientID);
     }
 
-    public function setSharedKey($key)
+    public function setSharedKey($key = null)
     {
-        $this->config['shared_key'] = env('DOKU_SECRET', $key);
+        $this->config['shared_key'] = $key ?? env('DOKU_SECRET', $key);
     }
 
     public function getConfig()
     {
-        $this->config['environment'] = env('DOKU_ENV', $this->config['environment'] ?? '');
-        $this->config['client_id'] = env('DOKU_CLIENT', $this->config['client_id'] ?? '');
-        $this->config['shared_key'] = env('DOKU_SECRET', $this->config['shared_key'] ?? '');
+        $this->config['environment'] = $this->config['environment'] ?? env('DOKU_ENV', '');
+        $this->config['client_id'] = $this->config['client_id'] ?? env('DOKU_CLIENT', '');
+        $this->config['shared_key'] = $this->config['shared_key'] ?? env('DOKU_SECRET', '');
         return $this->config;
     }
 
