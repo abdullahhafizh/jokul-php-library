@@ -18,4 +18,39 @@ class Utils
         $signature = base64_encode(hash_hmac('sha256', $rawSignature, $secret, true));
         return 'HMACSHA256=' . $signature;
     }
+
+    public static function generateUTC()
+    {
+        $dateTime = strtotime(gmdate("Y-m-d H:i:s"));
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+            CURLOPT_URL => "http://worldtimeapi.org/api/timezone/GMT",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_POSTFIELDS => "",
+        ]);
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if (!$err) {
+            $response = json_decode($response);
+            if(!empty($response->unixtime)) {
+                $dateTime = $response->unixtime;
+            }
+        }
+
+        $dateTime = date(DATE_ISO8601, $dateTime + (int)env('DOKU_SEC', 0));
+        return substr($dateTime, 0, 19) . "Z";
+    }
 }

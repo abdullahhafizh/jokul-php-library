@@ -82,9 +82,7 @@ class CreditCard
 
         $request_id = time() . rand(1,1000);
 
-        $dateTime = gmdate("Y-m-d H:i:s");
-        $dateTime = date(DATE_ISO8601, strtotime($dateTime));
-        $dateTimeFinal = substr($dateTime, 0, 19) . "Z";
+        $dateTimeFinal = Utils::generateUTC();
         $header['Request-Timestamp'] = $dateTimeFinal;
         $header['Client-Id'] = $config['client_id'];
         $header['Request-Id'] = $request_id;

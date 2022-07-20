@@ -47,14 +47,13 @@ class PaycodeGenerator
         }
 
         $requestId = time() . rand(1,1000);
-        $dateTime = gmdate("Y-m-d H:i:s");
-        $dateTime = date(DATE_ISO8601, strtotime($dateTime) + (int)env('DOKU_SEC', 0));
-        $dateTimeFinal = substr($dateTime, 0, 19) . "Z";
 
         $getUrl = Config::getBaseUrl($config['environment']);
 
         $targetPath = $params['targetPath'];
         $url = $getUrl . $targetPath;
+
+        $dateTimeFinal = Utils::generateUTC();
 
         $header['Client-Id'] = $config['client_id'];
         $header['Request-Id'] = $requestId;
