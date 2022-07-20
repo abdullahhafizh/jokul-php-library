@@ -18,7 +18,7 @@ class GetStatus
 
         $request_id = time() . rand(1,1000);
 
-        $header['Request-Timestamp'] = $dateTimeFinal;
+        $header['Request-Timestamp'] = Utils::generateUTC();
         $header['Client-Id'] = $config['client_id'];
         $header['Request-Id'] = $request_id;
         $signature = Utils::generateSignature($header, $targetPath, false, $config['shared_key']);
