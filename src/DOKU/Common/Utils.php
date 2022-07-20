@@ -51,6 +51,8 @@ class Utils
         }
 
         $dateTime = date(DATE_ISO8601, $dateTime + (int)env('DOKU_SEC', 0));
-        return substr($dateTime, 0, 19) . "Z";
+        $dateTimeFinal = substr($dateTime, 0, 19) . "Z";
+        \Log::info($dateTimeFinal);
+        return $dateTimeFinal;
     }
 }

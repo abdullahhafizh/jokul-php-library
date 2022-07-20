@@ -53,11 +53,9 @@ class PaycodeGenerator
         $targetPath = $params['targetPath'];
         $url = $getUrl . $targetPath;
 
-        $dateTimeFinal = Utils::generateUTC();
-
         $header['Client-Id'] = $config['client_id'];
         $header['Request-Id'] = $requestId;
-        $header['Request-Timestamp'] = $dateTimeFinal;
+        $header['Request-Timestamp'] = Utils::generateUTC();
         $signature = Utils::generateSignature($header, $targetPath, json_encode($data), $config['shared_key']);
 
         try {
@@ -76,7 +74,7 @@ class PaycodeGenerator
             'Signature:' . $signature,
             'Request-Id:' . $requestId,
             'Client-Id:' . $config['client_id'],
-            'Request-Timestamp:' . $dateTimeFinal,
+            'Request-Timestamp:' . Utils::generateUTC(),
             'Request-Target:' . $targetPath,
 
         ));

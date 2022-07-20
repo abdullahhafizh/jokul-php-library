@@ -21,8 +21,7 @@ class Cancel
 
         $request_id = time() . rand(1,1000);
 
-        $dateTimeFinal = Utils::generateUTC();
-        $header['Request-Timestamp'] = $dateTimeFinal;
+        $header['Request-Timestamp'] = Utils::generateUTC();
         $header['Client-Id'] = $config['client_id'];
         $header['Request-Id'] = $request_id;
         $signature = Utils::generateSignature($header, $targetPath, json_encode($params), $config['shared_key']);
@@ -45,7 +44,7 @@ class Cancel
             'Signature:' . $signature,
             'Request-Id:' . $request_id,
             'Client-Id:' . $config['client_id'],
-            'Request-Timestamp:' . $dateTimeFinal,
+            'Request-Timestamp:' . Utils::generateUTC(),
             'Request-Target:' . $targetPath,
         ));
 
