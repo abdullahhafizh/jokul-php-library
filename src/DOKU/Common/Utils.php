@@ -21,6 +21,12 @@ class Utils
 
     public static function generateUTC()
     {
+        $time_diff = (int)substr(date('c'), -5, 2);
+        return substr(date('c', strtotime("-$time_diff hour")), 0, -6) . 'Z';
+    }
+
+    public static function oldGenerateUTC()
+    {
         $dateTime = strtotime(gmdate("Y-m-d H:i:s"));
 
         $curl = curl_init();
