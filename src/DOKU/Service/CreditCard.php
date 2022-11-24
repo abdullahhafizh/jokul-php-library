@@ -26,6 +26,8 @@ class CreditCard
         ];
 
 
+        if (!empty($params['tenor'])) $data['override_configuration']['allow_tenor'] = $params['tenor'];
+        
         if (!empty($params['language'])) $data['override_configuration']['themes']['language'] = $params['language'];
 
         if (!empty($params['background_color'])) $data['override_configuration']['themes']['background_color'] = $params['background_color'];
