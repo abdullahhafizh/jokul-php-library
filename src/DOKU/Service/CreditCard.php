@@ -26,7 +26,7 @@ class CreditCard
         ];
 
 
-        if (!empty($params['tenor'])) $data['override_configuration']['allow_tenor'] = $params['tenor'];
+        if (array_key_exists('tenor', $params) && !empty($params['tenor'])) $data['override_configuration']['allow_tenor'] = $params['tenor'];
         
         if (!empty($params['language'])) $data['override_configuration']['themes']['language'] = $params['language'];
 
